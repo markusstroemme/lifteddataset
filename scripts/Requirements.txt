@@ -1,0 +1,6 @@
+pip install torch torchvision torchaudio
+pip install scikit-learn
+pip install transformers
+pip install tqdm
+pip install datasets transformers
+pip install "transformers[torch]"

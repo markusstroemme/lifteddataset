@@ -1,0 +1,15 @@
+
+Sample-level average across 5 folds - Epoch 43
+Overall Results:
+Macro-F1: 0.6723
+Macro-Precision: 0.6998
+Macro-Recall: 0.6504
+Accuracy: 0.7660
+
+Per-CWE Results:
+CWE                            F1       Precision    Recall     Accuracy   Avg Chunks
+CWE121_Stack_Based_Buffer_Overflow 0.2949   0.2981       0.2926     0.7472     5.44
+CWE122_Heap_Based_Buffer_Overflow 0.2509   0.2578       0.2491     0.6568     5.35
+CWE190_Integer_Overflow        0.3100   0.3128       0.3075     0.9278     4.00
+CWE416_Use_After_Free          0.2549   0.2605       0.2500     0.8233     2.32
+CWE476_NULL_Pointer_Dereference 0.2795   0.3046       0.2665     0.7500     5.79
