@@ -1,0 +1,117 @@
+@global_var_b6d38 = external constant [32 x i8]
+@global_var_b6d58 = external constant [21 x i8]
+@global_var_bd318 = external constant [4 x i8]
+@global_var_ec038 = external local_unnamed_addr global i32
+@global_var_ec1d4 = external local_unnamed_addr global i32
+
+define void @anon0() local_unnamed_addr {
+dec_label_pc_3d806:
+  %indvars.iv.reg2mem = alloca i64, align 8
+  %indvars.iv5.reg2mem = alloca i64, align 8
+  %stack_var_-24.0.reg2mem = alloca i32, align 4
+  %0 = load i32, ptr @global_var_ec1d4, align 4
+  %1 = icmp eq i32 %0, 0
+  store i32 7, ptr %stack_var_-24.0.reg2mem, align 4
+  br i1 %1, label %dec_label_pc_3d83b, label %dec_label_pc_3d823
+
+dec_label_pc_3d823:                               ; preds = %dec_label_pc_3d806
+  call void @printLine(ptr @global_var_b6d58)
+  store i32 -1, ptr %stack_var_-24.0.reg2mem, align 4
+  br label %dec_label_pc_3d83b
+
+dec_label_pc_3d83b:                               ; preds = %dec_label_pc_3d806, %dec_label_pc_3d823
+  %2 = load i32, ptr @global_var_ec038, align 4
+  %3 = icmp eq i32 %2, 0
+  br i1 %3, label %dec_label_pc_3d902, label %dec_label_pc_3d849
+
+dec_label_pc_3d849:                               ; preds = %dec_label_pc_3d83b
+  %stack_var_-24.0.reload = load i32, ptr %stack_var_-24.0.reg2mem, align 4
+  %4 = call ptr @malloc(i32 40)
+  %5 = ptrtoint ptr %4 to i64
+  %6 = icmp eq ptr %4, null
+  %7 = icmp eq i1 %6, false
+  store i64 0, ptr %indvars.iv5.reg2mem, align 8
+  br i1 %7, label %dec_label_pc_3d871, label %dec_label_pc_3d85e
+
+dec_label_pc_3d85e:                               ; preds = %dec_label_pc_3d849
+  call void @exit(i32 -1)
+  unreachable
+
+dec_label_pc_3d871:                               ; preds = %dec_label_pc_3d849, %dec_label_pc_3d871
+  %indvars.iv5.reload = load i64, ptr %indvars.iv5.reg2mem, align 8
+  %8 = mul i64 %indvars.iv5.reload, 4
+  %9 = add i64 %8, %5
+  %10 = inttoptr i64 %9 to ptr
+  store i32 0, ptr %10, align 4
+  %indvars.iv.next6 = add nuw nsw i64 %indvars.iv5.reload, 1
+  %exitcond7 = icmp eq i64 %indvars.iv.next6, 10
+  store i64 %indvars.iv.next6, ptr %indvars.iv5.reg2mem, align 8
+  br i1 %exitcond7, label %dec_label_pc_3d895, label %dec_label_pc_3d871
+
+dec_label_pc_3d895:                               ; preds = %dec_label_pc_3d871
+  %11 = icmp slt i32 %stack_var_-24.0.reload, 0
+  br i1 %11, label %dec_label_pc_3d8e7, label %dec_label_pc_3d89b
+
+dec_label_pc_3d89b:                               ; preds = %dec_label_pc_3d895
+  %12 = sext i32 %stack_var_-24.0.reload to i64
+  %13 = mul i64 %12, 4
+  %14 = add i64 %13, %5
+  %15 = inttoptr i64 %14 to ptr
+  store i32 1, ptr %15, align 4
+  store i64 0, ptr %indvars.iv.reg2mem, align 8
+  br label %dec_label_pc_3d8be
+
+dec_label_pc_3d8be:                               ; preds = %dec_label_pc_3d8be, %dec_label_pc_3d89b
+  %indvars.iv.reload = load i64, ptr %indvars.iv.reg2mem, align 8
+  %16 = mul i64 %indvars.iv.reload, 4
+  %17 = add i64 %16, %5
+  %18 = inttoptr i64 %17 to ptr
+  %19 = load i32, ptr %18, align 4
+  call void @printIntLine(i32 %19)
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv.reload, 1
+  %exitcond = icmp eq i64 %indvars.iv.next, 10
+  store i64 %indvars.iv.next, ptr %indvars.iv.reg2mem, align 8
+  br i1 %exitcond, label %dec_label_pc_3d8f6, label %dec_label_pc_3d8be
+
+dec_label_pc_3d8e7:                               ; preds = %dec_label_pc_3d895
+  call void @printLine(ptr @global_var_b6d38)
+  br label %dec_label_pc_3d8f6
+
+dec_label_pc_3d8f6:                               ; preds = %dec_label_pc_3d8be, %dec_label_pc_3d8e7
+  call void @free(ptr %4)
+  br label %dec_label_pc_3d902
+
+dec_label_pc_3d902:                               ; preds = %dec_label_pc_3d8f6, %dec_label_pc_3d83b
+  ret void
+}
+
+define void @printLine(ptr %line) local_unnamed_addr {
+dec_label_pc_9fe8c:
+  %0 = icmp eq ptr %line, null
+  br i1 %0, label %dec_label_pc_9feaf, label %dec_label_pc_9fea3
+
+dec_label_pc_9fea3:                               ; preds = %dec_label_pc_9fe8c
+  %1 = call i32 @puts(ptr nonnull %line)
+  br label %dec_label_pc_9feaf
+
+dec_label_pc_9feaf:                               ; preds = %dec_label_pc_9fea3, %dec_label_pc_9fe8c
+  ret void
+}
+
+define void @printIntLine(i32 %intNumber) local_unnamed_addr {
+dec_label_pc_9fee7:
+  %0 = zext i32 %intNumber to i64
+  %1 = call i32 (ptr, ...) @printf(ptr @global_var_bd318, i64 %0)
+  ret void
+}
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+
+declare void @free(ptr) local_unnamed_addr
+
+declare void @exit(i32) local_unnamed_addr
+
+declare ptr @malloc(i32) local_unnamed_addr
+
+declare i32 @puts(ptr) local_unnamed_addr
+

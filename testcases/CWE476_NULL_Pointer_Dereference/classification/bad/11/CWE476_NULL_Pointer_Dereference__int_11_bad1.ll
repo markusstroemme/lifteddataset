@@ -1,0 +1,34 @@
+@global_var_4a578 = external constant [4 x i8]
+
+define void @anon0() local_unnamed_addr {
+dec_label_pc_101e9:
+  %0 = alloca ptr, align 8
+  %1 = load ptr, ptr %0, align 8
+  %2 = call i32 @globalReturnsTrue()
+  %3 = call i32 @globalReturnsTrue()
+  %4 = icmp eq i32 %3, 0
+  br i1 %4, label %dec_label_pc_10226, label %dec_label_pc_10219
+
+dec_label_pc_10219:                               ; preds = %dec_label_pc_101e9
+  %5 = load i32, ptr %1, align 4
+  call void @printIntLine(i32 %5)
+  br label %dec_label_pc_10226
+
+dec_label_pc_10226:                               ; preds = %dec_label_pc_10219, %dec_label_pc_101e9
+  ret void
+}
+
+define void @printIntLine(i32 %intNumber) local_unnamed_addr {
+dec_label_pc_3cb8a:
+  %0 = zext i32 %intNumber to i64
+  %1 = call i32 (ptr, ...) @printf(ptr @global_var_4a578, i64 %0)
+  ret void
+}
+
+define i32 @globalReturnsTrue() local_unnamed_addr {
+dec_label_pc_3d03f:
+  ret i32 1
+}
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+

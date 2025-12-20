@@ -1,0 +1,72 @@
+@global_var_30136 = external constant [10 x i8]
+@0 = external global i32
+@global_var_320 = external constant i32
+
+define i64 @anon0() local_unnamed_addr {
+dec_label_pc_249d9:
+  %rax.0.reg2mem = alloca i64, align 8
+  %storemerge2.reg2mem = alloca i64, align 8
+  %stack_var_-824 = alloca i64, align 8
+  %stack_var_-1624 = alloca i64, align 8
+  %stack_var_-8 = alloca i64, align 8
+  %0 = ptrtoint ptr %stack_var_-8 to i64
+  %1 = call i64 @__readfsqword(i64 40)
+  store i64 0, ptr %storemerge2.reg2mem, align 8
+  br label %dec_label_pc_24a31
+
+dec_label_pc_24a31:                               ; preds = %dec_label_pc_24a31, %dec_label_pc_249d9
+  %storemerge2.reload = load i64, ptr %storemerge2.reg2mem, align 8
+  %2 = mul i64 %storemerge2.reload, 8
+  %3 = add i64 %2, %0
+  %4 = add i64 %3, -816
+  %5 = inttoptr i64 %4 to ptr
+  store i32 0, ptr %5, align 8
+  %6 = add i64 %3, -812
+  %7 = inttoptr i64 %6 to ptr
+  store i32 0, ptr %7, align 4
+  %8 = add nuw nsw i64 %storemerge2.reload, 1
+  %exitcond = icmp eq i64 %8, 100
+  store i64 %8, ptr %storemerge2.reg2mem, align 8
+  br i1 %exitcond, label %dec_label_pc_24a67, label %dec_label_pc_24a31
+
+dec_label_pc_24a67:                               ; preds = %dec_label_pc_24a31
+  %9 = bitcast ptr %stack_var_-1624 to ptr
+  %10 = call ptr @memcpy(ptr nonnull %stack_var_-1624, ptr nonnull %stack_var_-824, i32 ptrtoint (ptr @global_var_320 to i32))
+  call void @printStructLine(ptr nonnull %9)
+  %11 = call i64 @__readfsqword(i64 40)
+  %12 = icmp eq i64 %1, %11
+  store i64 0, ptr %rax.0.reg2mem, align 8
+  br i1 %12, label %dec_label_pc_24aa9, label %dec_label_pc_24aa4
+
+dec_label_pc_24aa4:                               ; preds = %dec_label_pc_24a67
+  call void @__stack_chk_fail()
+  store i64 ptrtoint (ptr @0 to i64), ptr %rax.0.reg2mem, align 8
+  br label %dec_label_pc_24aa9
+
+dec_label_pc_24aa9:                               ; preds = %dec_label_pc_24aa4, %dec_label_pc_24a67
+  %rax.0.reload = load i64, ptr %rax.0.reg2mem, align 8
+  ret i64 %rax.0.reload
+}
+
+define void @printStructLine(ptr %structTwoIntsStruct) local_unnamed_addr {
+dec_label_pc_275a6:
+  %0 = alloca i64, align 8
+  %1 = load i64, ptr %0, align 8
+  %2 = ptrtoint ptr %structTwoIntsStruct to i64
+  %3 = add i64 %2, 4
+  %4 = inttoptr i64 %3 to ptr
+  %5 = load i32, ptr %4, align 4
+  %6 = zext i32 %5 to i64
+  %7 = and i64 %1, 4294967295
+  %8 = call i32 (ptr, ...) @printf(ptr @global_var_30136, i64 %7, i64 %6)
+  ret void
+}
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+
+declare ptr @memcpy(ptr, ptr, i32) local_unnamed_addr
+
+declare void @__stack_chk_fail() local_unnamed_addr
+
+declare i64 @__readfsqword(i64) local_unnamed_addr
+

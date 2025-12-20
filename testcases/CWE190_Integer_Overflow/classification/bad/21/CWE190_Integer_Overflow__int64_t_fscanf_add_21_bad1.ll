@@ -1,0 +1,57 @@
+@global_var_71910 = external constant [4 x i8]
+@global_var_76ce9 = external constant [5 x i8]
+@global_var_a5080 = external local_unnamed_addr global ptr
+@global_var_a521c = external local_unnamed_addr global i32
+
+define void @anon1(i64 %data) local_unnamed_addr {
+dec_label_pc_342ae:
+  %0 = load i32, ptr @global_var_a521c, align 4
+  %1 = icmp eq i32 %0, 0
+  br i1 %1, label %dec_label_pc_342e0, label %dec_label_pc_342c8
+
+dec_label_pc_342c8:                               ; preds = %dec_label_pc_342ae
+  %2 = add i64 %data, 1
+  call void @printLongLongLine(i64 %2)
+  br label %dec_label_pc_342e0
+
+dec_label_pc_342e0:                               ; preds = %dec_label_pc_342c8, %dec_label_pc_342ae
+  ret void
+}
+
+define void @anon0() local_unnamed_addr {
+dec_label_pc_342e3:
+  %stack_var_-24 = alloca i64, align 8
+  %0 = call i64 @__readfsqword(i64 40)
+  store i64 0, ptr %stack_var_-24, align 8
+  %1 = load ptr, ptr @global_var_a5080, align 8
+  %2 = call i32 (ptr, ptr, ...) @fscanf(ptr %1, ptr @global_var_71910, ptr nonnull %stack_var_-24)
+  store i32 1, ptr @global_var_a521c, align 4
+  %3 = load i64, ptr %stack_var_-24, align 8
+  call void @anon1(i64 %3)
+  %4 = call i64 @__readfsqword(i64 40)
+  %5 = icmp eq i64 %0, %4
+  br i1 %5, label %dec_label_pc_34353, label %dec_label_pc_3434e
+
+dec_label_pc_3434e:                               ; preds = %dec_label_pc_342e3
+  call void @__stack_chk_fail()
+  br label %dec_label_pc_34353
+
+dec_label_pc_34353:                               ; preds = %dec_label_pc_3434e, %dec_label_pc_342e3
+  ret void
+}
+
+define void @printLongLongLine(i64 %longLongIntNumber) local_unnamed_addr {
+dec_label_pc_5a132:
+  %0 = trunc i64 %longLongIntNumber to i32
+  %1 = call i32 (ptr, ...) @printf(ptr @global_var_76ce9, i32 %0)
+  ret void
+}
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+
+declare void @__stack_chk_fail() local_unnamed_addr
+
+declare i32 @fscanf(ptr, ptr, ...) local_unnamed_addr
+
+declare i64 @__readfsqword(i64) local_unnamed_addr
+

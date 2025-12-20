@@ -1,0 +1,64 @@
+@global_var_7a994 = external constant [4 x i8]
+@0 = external global i32
+
+define i64 @anon0() local_unnamed_addr {
+dec_label_pc_59f1c:
+  %rax.0.reg2mem = alloca i64, align 8
+  %stack_var_-20 = alloca i32, align 4
+  %0 = call i64 @__readfsqword(i64 40)
+  store i32 0, ptr %stack_var_-20, align 4
+  %1 = bitcast ptr %stack_var_-20 to ptr
+  %2 = call i64 @anon1(ptr nonnull %1)
+  %3 = load i32, ptr %stack_var_-20, align 4
+  %4 = mul i32 %3, 65536
+  %sext = add i32 %4, 65536
+  %5 = ashr exact i32 %sext, 16
+  call void @printIntLine(i32 %5)
+  %6 = call i64 @__readfsqword(i64 40)
+  %7 = icmp eq i64 %0, %6
+  store i64 0, ptr %rax.0.reg2mem, align 8
+  br i1 %7, label %dec_label_pc_59f74, label %dec_label_pc_59f6f
+
+dec_label_pc_59f6f:                               ; preds = %dec_label_pc_59f1c
+  call void @__stack_chk_fail()
+  store i64 ptrtoint (ptr @0 to i64), ptr %rax.0.reg2mem, align 8
+  br label %dec_label_pc_59f74
+
+dec_label_pc_59f74:                               ; preds = %dec_label_pc_59f6f, %dec_label_pc_59f1c
+  %rax.0.reload = load i64, ptr %rax.0.reg2mem, align 8
+  ret i64 %rax.0.reload
+}
+
+define i64 @anon1(ptr %arg1) local_unnamed_addr {
+dec_label_pc_5a05a:
+  %0 = call i32 @rand()
+  %1 = urem i32 %0, 2
+  %2 = icmp eq i32 %1, 0
+  %3 = call i32 @rand()
+  %4 = call i32 @rand()
+  %5 = mul i32 %4, 32768
+  %6 = call i32 @rand()
+  %7 = xor i32 %6, %5
+  %8 = sext i1 %2 to i32
+  %storemerge.in = xor i32 %7, %8
+  %9 = ptrtoint ptr %arg1 to i64
+  %10 = trunc i32 %storemerge.in to i16
+  store i16 %10, ptr %arg1, align 2
+  ret i64 %9
+}
+
+define void @printIntLine(i32 %intNumber) local_unnamed_addr {
+dec_label_pc_5de56:
+  %0 = zext i32 %intNumber to i64
+  %1 = call i32 (ptr, ...) @printf(ptr @global_var_7a994, i64 %0)
+  ret void
+}
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+
+declare i32 @rand() local_unnamed_addr
+
+declare void @__stack_chk_fail() local_unnamed_addr
+
+declare i64 @__readfsqword(i64) local_unnamed_addr
+

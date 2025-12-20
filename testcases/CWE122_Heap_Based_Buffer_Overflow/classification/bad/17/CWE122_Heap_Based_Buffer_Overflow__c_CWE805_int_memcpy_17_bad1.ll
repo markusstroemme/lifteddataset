@@ -1,0 +1,58 @@
+@global_var_7c820 = external constant [4 x i8]
+
+define void @anon0() local_unnamed_addr {
+dec_label_pc_26052:
+  %stack_var_-424 = alloca i64, align 8
+  %0 = call i64 @__readfsqword(i64 40)
+  %1 = call ptr @malloc(i32 200)
+  %2 = icmp eq ptr %1, null
+  %3 = icmp eq i1 %2, false
+  br i1 %3, label %dec_label_pc_26087, label %dec_label_pc_2606d
+
+dec_label_pc_2606d:                               ; preds = %dec_label_pc_26052
+  call void @exit(i32 -1)
+  unreachable
+
+dec_label_pc_26087:                               ; preds = %dec_label_pc_26052
+  %4 = bitcast ptr %stack_var_-424 to ptr
+  call void @__asm_rep_stosq_memset(ptr nonnull %4, i64 0, i64 50)
+  %5 = call ptr @memcpy(ptr %1, ptr nonnull %stack_var_-424, i32 400)
+  %6 = bitcast ptr %1 to ptr
+  %7 = load i32, ptr %6, align 4
+  call void @printIntLine(i32 %7)
+  call void @free(ptr %1)
+  %8 = call i64 @__readfsqword(i64 40)
+  %9 = icmp eq i64 %0, %8
+  br i1 %9, label %dec_label_pc_260f0, label %dec_label_pc_260eb
+
+dec_label_pc_260eb:                               ; preds = %dec_label_pc_26087
+  call void @__stack_chk_fail()
+  br label %dec_label_pc_260f0
+
+dec_label_pc_260f0:                               ; preds = %dec_label_pc_260eb, %dec_label_pc_26087
+  ret void
+}
+
+define void @printIntLine(i32 %intNumber) local_unnamed_addr {
+dec_label_pc_65801:
+  %0 = zext i32 %intNumber to i64
+  %1 = call i32 (ptr, ...) @printf(ptr @global_var_7c820, i64 %0)
+  ret void
+}
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+
+declare ptr @memcpy(ptr, ptr, i32) local_unnamed_addr
+
+declare void @__stack_chk_fail() local_unnamed_addr
+
+declare void @free(ptr) local_unnamed_addr
+
+declare void @exit(i32) local_unnamed_addr
+
+declare ptr @malloc(i32) local_unnamed_addr
+
+declare void @__asm_rep_stosq_memset(ptr, i64, i64) local_unnamed_addr
+
+declare i64 @__readfsqword(i64) local_unnamed_addr
+

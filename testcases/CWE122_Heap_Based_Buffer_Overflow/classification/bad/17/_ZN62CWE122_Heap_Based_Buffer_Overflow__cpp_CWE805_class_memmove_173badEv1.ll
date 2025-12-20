@@ -1,0 +1,82 @@
+@global_var_320 = external constant [20 x i8]
+@global_var_609dc = external constant [4 x i8]
+@0 = external global i32
+
+define i64 @anon0() local_unnamed_addr {
+dec_label_pc_16477.preheader:
+  %rax.0.reg2mem = alloca i64, align 8
+  %storemerge2.reg2mem = alloca i64, align 8
+  %stack_var_-824 = alloca i64, align 8
+  %stack_var_-8 = alloca i64, align 8
+  %0 = call i64 @__readfsqword(i64 40)
+  %1 = call i64 @_Znam(i64 400)
+  %2 = ptrtoint ptr %stack_var_-8 to i64
+  store i64 0, ptr %storemerge2.reg2mem, align 8
+  br label %dec_label_pc_1644b
+
+dec_label_pc_1644b:                               ; preds = %dec_label_pc_1644b, %dec_label_pc_16477.preheader
+  %storemerge2.reload = load i64, ptr %storemerge2.reg2mem, align 8
+  %3 = mul i64 %storemerge2.reload, 8
+  %4 = add i64 %3, %2
+  %5 = add i64 %4, -816
+  %6 = inttoptr i64 %5 to ptr
+  store i32 0, ptr %6, align 8
+  %7 = add i64 %4, -812
+  %8 = inttoptr i64 %7 to ptr
+  store i32 0, ptr %8, align 4
+  %9 = add nuw nsw i64 %storemerge2.reload, 1
+  %exitcond = icmp eq i64 %9, 100
+  store i64 %9, ptr %storemerge2.reg2mem, align 8
+  br i1 %exitcond, label %dec_label_pc_16481, label %dec_label_pc_1644b
+
+dec_label_pc_16481:                               ; preds = %dec_label_pc_1644b
+  %10 = inttoptr i64 %1 to ptr
+  %11 = call ptr @memmove(ptr %10, ptr nonnull %stack_var_-824, i32 ptrtoint (ptr @global_var_320 to i32))
+  %12 = inttoptr i64 %1 to ptr
+  %13 = load i32, ptr %12, align 4
+  call void @printIntLine(i32 %13)
+  %14 = icmp eq i64 %1, 0
+  br i1 %14, label %dec_label_pc_164c8, label %dec_label_pc_164b9
+
+dec_label_pc_164b9:                               ; preds = %dec_label_pc_16481
+  %15 = ptrtoint ptr %stack_var_-824 to i64
+  %16 = and i64 %15, 4294967288
+  %17 = inttoptr i64 %16 to ptr
+  call void @_ZdaPv(ptr %10, ptr %17)
+  br label %dec_label_pc_164c8
+
+dec_label_pc_164c8:                               ; preds = %dec_label_pc_164b9, %dec_label_pc_16481
+  %18 = call i64 @__readfsqword(i64 40)
+  %19 = icmp eq i64 %0, %18
+  store i64 0, ptr %rax.0.reg2mem, align 8
+  br i1 %19, label %dec_label_pc_164dd, label %dec_label_pc_164d8
+
+dec_label_pc_164d8:                               ; preds = %dec_label_pc_164c8
+  call void @__stack_chk_fail()
+  store i64 ptrtoint (ptr @0 to i64), ptr %rax.0.reg2mem, align 8
+  br label %dec_label_pc_164dd
+
+dec_label_pc_164dd:                               ; preds = %dec_label_pc_164d8, %dec_label_pc_164c8
+  %rax.0.reload = load i64, ptr %rax.0.reg2mem, align 8
+  ret i64 %rax.0.reload
+}
+
+define void @printIntLine(i32 %intNumber) local_unnamed_addr {
+dec_label_pc_4d9d3:
+  %0 = zext i32 %intNumber to i64
+  %1 = call i32 (ptr, ...) @printf(ptr @global_var_609dc, i64 %0)
+  ret void
+}
+
+declare i64 @_Znam(i64) local_unnamed_addr
+
+declare i32 @printf(ptr, ...) local_unnamed_addr
+
+declare void @__stack_chk_fail() local_unnamed_addr
+
+declare void @_ZdaPv(ptr, ptr) local_unnamed_addr
+
+declare ptr @memmove(ptr, ptr, i32) local_unnamed_addr
+
+declare i64 @__readfsqword(i64) local_unnamed_addr
+
